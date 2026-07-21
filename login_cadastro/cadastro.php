@@ -10,19 +10,26 @@ $pdo = $conexao->conectar();
             $email = $_POST['email'] ?? '';
             $senha = $_POST['senha'] ?? '';
         
+        $verifica_email = $pdo->prepare("SELECT id_cadastro FROM cadastro WHERE email = ?");
+        $verifica_email->execute([$email]);
+        
+        if ($verifica_email->rowCount() > 0) {
+            $mensagem = "E-mail já cadastrado.";
+        } else {
+
             $insert = $pdo->prepare("
                 INSERT INTO cadastro (email, usuario, senha)
                 VALUES (?, ?, ?)
             ");
 
-            if($insert->execute([$email, $usuario, $senha])) {
+            if ($insert->execute([$email, $usuario, $senha])) {
                 $mensagem = "Cliente cadastrado com sucesso!";
-                $tipo = "success";
             } else {
-                $mensagem = "erro ao cadastrar cliente.";
-                $tipo = "error";
+                $mensagem = "Erro ao cadastrar cliente.";
             }
+        }
     }
+
         
 ?>
 
@@ -32,17 +39,46 @@ $pdo = $conexao->conectar();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
+    <link rel="stylesheet" href="../assets/css/style_cadastro.css"> 
 </head>
 <body>
-        <form action="" method="post">
-        <input type="text" name="user" id="user" placeholder="Digite seu nick">
+<form action="" method="post">
 
-        <input type="email" name="email" id="email" placeholder="Digite seu email">
+    <h2>Cadastro</h2>
 
-        <input type="password" name="senha" id="senha" placeholder="Digite sua senha">
-        <button type="submit">Confirmar</button>
-        </form>
-        
+    <?php if (!empty($mensagem)): ?>
+        <div class="mensagem <?= str_contains($mensagem, 'sucesso') ? 'sucesso' : 'erro' ?>">
+            <?= htmlspecialchars($mensagem) ?>
+        </div>
+    <?php endif; ?>
+
+    <input type="text"
+           name="user"
+           id="user"
+           placeholder="Digite seu usuário">
+
+    <input type="email"
+           name="email"
+           id="email"
+           placeholder="Digite seu e-mail">
+
+    <input type="password"
+           name="senha"
+           id="senha"
+           placeholder="Digite sua senha">
+
+    <button type="submit">
+        Cadastrar
+    </button>
+    
+    <div class="cadastro">
+        <p>
+            
+            <a href="../login_cadastro/login.php">Já possuo cadastro</a>
+        </p>
+    </div>
+
+</form>
        
 </body>
 </html>
