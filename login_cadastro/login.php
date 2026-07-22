@@ -24,9 +24,10 @@ $pdo = $conexao->conectar();
             $verifica_login->execute([$usuario_login]);
 
             $usuario = $verifica_login->fetch(PDO::FETCH_ASSOC);
-
-            echo "<pre>";
-
+/*
+        teste de senha
+            
+        echo "<pre>";
         var_dump($usuario);
 
         echo "<br>";
@@ -34,13 +35,14 @@ $pdo = $conexao->conectar();
         var_dump($senha_login);
 
         echo "<br>";
+       
 
         if ($usuario) {
             var_dump(password_verify($senha_login, $usuario['senha']));
         }
 
         exit;
-
+*/
             if ($usuario && password_verify($senha_login, $usuario['senha'])) {
 
                 session_start();
