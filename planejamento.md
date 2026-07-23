@@ -2,9 +2,9 @@
 - [ ] Definir o que o marketplace faz (C2C, B2C ou B2B?)
 - [ ] Levantar requisitos funcionais e não-funcionais
 - [ ] Definir arquitetura do sistema
-- [ ] Escolher a stack tecnológica (ex: Next.js + Node.js + PostgreSQL)
-- [ ] Desenhar o modelo do banco de dados (tabelas: users, products, orders, payments, reviews)
-- [ ] Definir os endpoints da API (autenticação, produtos, pedidos, pagamentos)
+- [x] Escolher a stack tecnológica (ex: Next.js + Node.js + PostgreSQL)
+- [x] Desenhar o modelo do banco de dados (tabelas: users, products, orders, payments, reviews)
+- [x] Definir os endpoints da API (autenticação, produtos, pedidos, pagamentos)
 - [ ] Criar wireframes das telas principais (home, produto, carrinho, checkout, painel admin)
 
 🟢 Fase 2: Execução / Desenvolvimento
