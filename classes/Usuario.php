@@ -1,5 +1,5 @@
-ideias da classe 
-
+<?php
+/*
 class Usuario
 {
     private $pdo;
@@ -9,15 +9,29 @@ class Usuario
         $this->pdo = $pdo;
     }
 
-    public function cadastrar(){}
+    public function cadastrar(){
 
-    public function login(){}
+    }
 
-    public function logout(){}
+    public function login(){
 
-    public function atualizar(){}
+    }
 
-    public function excluir(){}
+    public function logout(){
 
-    public function buscarPorId(){}
+    }
+
+    public function atualizar(){
+
+    }
+
+    public function excluir(){
+
+    }
+
+    public function buscarPorId(){
+
+    }
 }
+*/
+?>

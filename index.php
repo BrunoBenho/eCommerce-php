@@ -3,22 +3,23 @@
 session_start();
     
 require_once 'db_connect/Conexao.php';
+require_once 'classes/Produtos.php';
 $conexao = new Conexao();
 $pdo = $conexao->conectar();
 
-    if($_SERVER['REQUEST_METHOD'] ==='GET') {
+$produto = new Produtos($pdo);
 
-        $categoria = $_GET['id_categoria'] ?? '';
-        $busca = $pdo->prepare("SELECT *
-                                 FROM categorias 
-                                 WHERE nome_categorias LIKE ? ");
+    // pesquisando somente a categoria, melhorar o sql
+        if(!empty($_GET['q'])){
 
-        $busca->execute([$categoria]);
-        $resultado = $busca->fetch(PDO::FETCH_ASSOC);
+            $produtos = $produto->buscar($_GET['q']);
 
-        var_dump($resultado);
-    }
+        } else{
+            
+            $produtos = $produto->listar();
 
+        }
+        
 ?>
 
 
@@ -38,23 +39,36 @@ $pdo = $conexao->conectar();
         </div>
 
         <form action="" method="GET">
-            <input type="text" name="id_categoria" placeholder="O que você procura?">
+            <input type="text" name="q" placeholder="O que você procura?">
             <button type="submit">Buscar</button>
         </form>
-
+    
     <?php if (isset($_SESSION['usuario'])): ?>
 
         <p>Olá, <?= htmlspecialchars($_SESSION['usuario']) ?> </p>
         <a href="login_cadastro/logout.php">Sair</a>
         <br>
-        <a href="admin/produtos/index.php">Meus carrinho</a>
+        <a href="admin/produtos/index.php">Meu carrinho</a>
     <?php else: ?>
     
         <a href="login_cadastro/login.php">
         <button type="button">Login</button>
         </a>
     <?php endif; ?>
-        
+    
+    <?php foreach ($produtos as $item): ?>
+        <div class="produto">
+            <h3> <?= htmlspecialchars($item['nome_produtos']); ?> </h3>
+            
+            <?php if(isset($item['nome_categorias'])): ?>
+                <p>Categoria: <?= htmlspecialchars($item['nome_categorias'])?> </p>
 
+            <?php endif; ?>
+
+            <p>R$ <?= number_format($item['preco_produtos'], 2,',','.') ?> 
+            
+        </p> 
+        </div>
+        <?php endforeach; ?>
 </body>
 </html>
