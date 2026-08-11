@@ -1,6 +1,6 @@
 <?php
 
-require_once '../db_connect/Conexao.php';
+require_once '../config/Conexao.php';
 $conexao = new Conexao();
 $pdo = $conexao->conectar();
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../db_connect/Conexao.php';
+require_once '../config/Conexao.php';
 $conexao = new Conexao();
 $pdo = $conexao->conectar();
 
@@ -104,7 +104,7 @@ $pdo = $conexao->conectar();
 
         <div class="cadastro">
         <p>
-            <a href="../login_cadastro/cadastro.php">Realizar Cadastro</a>
+            <a href="../login/cadastro.php">Realizar Cadastro</a>
         </p>
     </div>
 </form>

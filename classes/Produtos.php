@@ -42,5 +42,21 @@ public function buscar(string $texto){
 
 
     }
+
+public function selecionar(){
+    
+    $selecionar = $this->$pdo->prepare(
+        "SELECT
+            p.produtos
+            p.preco
+        FROM produtos as p
+        "
+                                      );
+    $selecionar->execute();
+    return $buscar->fetchALL(PDO::FETCH_ASSOC);
 }
+
+}
+
+
 ?>

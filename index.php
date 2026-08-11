@@ -2,7 +2,7 @@
 
 session_start();
     
-require_once 'db_connect/Conexao.php';
+require_once 'config/Conexao.php';
 require_once 'classes/Produtos.php';
 $conexao = new Conexao();
 $pdo = $conexao->conectar();
@@ -11,8 +11,12 @@ $produto = new Produtos($pdo);
 
     // pesquisando somente a categoria, melhorar o sql
         if(!empty($_GET['q'])){
-
-            $produtos = $produto->buscar($_GET['q']);
+            
+            $query = http_build_query([
+                'q' => $_GET['q']
+            ]);
+            header("Location: admin/produtos/index.php?$query");
+            exit;
 
         } else{
             
@@ -46,12 +50,12 @@ $produto = new Produtos($pdo);
     <?php if (isset($_SESSION['usuario'])): ?>
 
         <p>Olá, <?= htmlspecialchars($_SESSION['usuario']) ?> </p>
-        <a href="login_cadastro/logout.php">Sair</a>
+        <a href="login/logout.php">Sair</a>
         <br>
-        <a href="admin/produtos/index.php">Meu carrinho</a>
+        <a href="admin/produtos/Carrinho.php">Meu carrinho</a>
     <?php else: ?>
     
-        <a href="login_cadastro/login.php">
+        <a href="login/login.php">
         <button type="button">Login</button>
         </a>
     <?php endif; ?>
