@@ -9,7 +9,9 @@ class Produtos{
 
 public function listar(){
 
-        $listar = $this->pdo->prepare("SELECT nome_produtos, 
+        $listar = $this->pdo->prepare("SELECT 
+                                id_produtos,
+                                nome_produtos, 
                                 preco_produtos 
                                 FROM produtos");
         
@@ -43,20 +45,26 @@ public function buscar(string $texto){
 
     }
 
-public function selecionar(){
-    
-    $selecionar = $this->$pdo->prepare(
-        "SELECT
-            p.produtos
-            p.preco
-        FROM produtos as p
-        "
-                                      );
-    $selecionar->execute();
-    return $buscar->fetchALL(PDO::FETCH_ASSOC);
+public function buscaPorId(int $id)
+{
+    $sql = "SELECT
+                p.id_produtos,
+                p.nome_produtos,
+                p.preco_produtos,
+                c.nome_categorias
+            FROM produtos p
+            INNER JOIN categorias c
+                ON p.fk_categorias_id = c.id_categorias
+            WHERE p.id_produtos = ?";
+
+    $stmt = $this->pdo->prepare($sql);
+
+    $stmt->execute([$id]);
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+
+
 }
-
-
 ?>

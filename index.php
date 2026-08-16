@@ -27,6 +27,7 @@ $produto = new Produtos($pdo);
 ?>
 
 
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -60,6 +61,8 @@ $produto = new Produtos($pdo);
         </a>
     <?php endif; ?>
     
+    
+
     <?php foreach ($produtos as $item): ?>
         <div class="produto">
             <h3> <?= htmlspecialchars($item['nome_produtos']); ?> </h3>
@@ -69,8 +72,17 @@ $produto = new Produtos($pdo);
 
             <?php endif; ?>
 
-            <p>R$ <?= number_format($item['preco_produtos'], 2,',','.') ?> 
-            
+            <p>R$ <?= number_format($item['preco_produtos'], 2,',','.') ?>
+
+            <form action="admin/produtos/Produto.php" method="GET">
+                <input 
+                type="hidden" 
+                name="id" 
+                value="<?= $item['id_produtos'] ?>"
+            >
+                <button type="submit">Comprar</button>
+            </form>
+                
         </p> 
         </div>
         <?php endforeach; ?>

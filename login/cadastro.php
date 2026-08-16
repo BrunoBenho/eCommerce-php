@@ -79,7 +79,7 @@ $pdo = $conexao->conectar();
 
     <div class="cadastro">
         <p>
-            <a href="../login_cadastro/login.php">Já possuo cadastro</a>
+            <a href="../login/login.php">Já possuo cadastro</a>
         </p>
     </div>
 
